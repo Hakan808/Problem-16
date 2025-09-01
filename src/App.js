@@ -69,7 +69,7 @@ export default function FAQ() {
           <div className="flex justify-between p-5 border  rounded-xs border-black border-3 shadow-2xl">
             <input type="text" placeholder="Search ..." className=" flex-4 px-5 py-2 text-black
              outline-none  border-b-4 border-indigo-500" onChange={(e) => setSearch(e.target.value)}/>
-            <button onClick={handleAllToggle} className="border border-2 flex-1 text-white bg-blue-500 px-3">
+            <button onClick={handleAllToggle} className="border border-2 flex-1 text-white bg-indigo-500 px-3">
               {openIds.length === faqs.length ? "Tümünü Kapat" : "Tümünü Aç"}
             </button>
           </div>
@@ -96,7 +96,7 @@ function Accordion({ faq, isOpen, onToggle }) {
       <dt>
         <button
           onClick={onToggle}
-          className="flex w-full items-start justify-between text-left text-gray-900"
+          className={`flex w-full items-start justify-between text-left text-gray-900 transition ${isOpen ? "font-bold bg-gray-100 text-indigo-500": "text-gray-900"} hover:bg-gray-50 p-2 rounded-md`}
         >
           <span className="text-base font-semibold leading-7">
             {faq.question}
@@ -110,11 +110,15 @@ function Accordion({ faq, isOpen, onToggle }) {
           </span>
         </button>
       </dt>
-      {isOpen && (
-        <dd className="mt-2 pr-12">
-          <p className="text-base leading-7 text-gray-600">{faq.answer}</p>
-        </dd>
-      )}
+        <dd
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-40 opacity-100 mt-2" : "max-h-0 opacity-0"
+        }`}
+      >
+        <p className="text-base leading-7 text-gray-600 bg-gray-50 p-4 rounded-md border">
+          {faq.answer}
+        </p>
+      </dd>
     </div>
   );
 }
